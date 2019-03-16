@@ -1,0 +1,32 @@
+<?php
+include "./DoubleLinkList.php";
+
+$list = new DoubleLinkList();
+$list->addFirst(1, "orange");
+$list->addLast(2, "apple");
+$list->addLast(3, "banana");
+$list->addFirst(4, "grape");
+$list->getFirst();
+$list->removeFirst();
+$list->getLast();
+echo "-----------------";
+$list->getAll();
+echo "-----------------";
+$list->removeLast();
+$list->getAll();
+echo "-----------------";
+$list->add(1, 4, "peal");
+$list->getAll();
+echo "-----------------";
+$list->add(1, 5, "watermoon");
+$list->addFirst(6, "strawberry");
+$list->remove(3);
+$list->getAll();
+echo "-----------------";
+var_dump($list->findByKey(2));
+echo "-----------------";
+$a = $list->findByPos(2);
+var_dump($a->key, $a->data);
+echo "-----------------";
+$list->clear();
+$list->getAll();
