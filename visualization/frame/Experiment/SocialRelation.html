@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang='en'>
+<!--用不同形状表示不同部门, 形状大小表示职位，线条粗细表示权重-->
+
+<head>
+    <meta charset="utf-8">
+    <title>Social Relation Network</title>
+    <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+    <style>
+        .main {
+            float: left;
+        }
+
+        .radio {
+            height: 200px;
+            width: 200px;
+            margin: 40px;
+            /*设置元素跟其他元素的距离为20像素*/
+            float: right;
+            /*设置浮动，实现多列效果，div+Css布局中很重要的*/
+        }
+
+        .color {
+            margin: 30px;
+            float: right;
+        }
+
+        .circle {
+            margin: 10px;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            color: #FFFFFF;
+        }
+    </style>
+    <script type="text/javascript">
+        function disp(width) {
+            var line = document.getElementsByTagName("line");
+            //alert(width);
+            //alert(line[5].style['stroke-width']);
+
+            for (i = 0; i < line.length; ++i) {
+                if (width == 0) {
+                    line[i].style.visibility = 'visible';
+                } else {
+                    if (line[i].style['stroke-width'] != width) {
+                        line[i].style.visibility = 'hidden';
+                    } else {
+                        line[i].style.visibility = 'visible';
+                    }
+                }
+            }
+        }
+
+        function checks() {
+            var radios = document.getElementsByName("radio");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked == true) {
+                    return i;
+                }
+            }
+        }
+
+
+        function change() {
+            var radio = checks();
+            switch (radio) {
+                case 1:
+                    disp(1);
+                    break;
+                case 2:
+                    disp(2);
+                    break;
+                case 3:
+                    disp(3);
+                    break;
+                case 4:
+                    disp(4);
+                    break;
+                case 5:
+                    disp(5);
+                    break;
+                case 6:
+                    disp(6);
+                    break;
+                case 7:
+                    disp(7);
+                    break;
+                default:
+                    disp(0);
+            }
+        }
+
+        function display(e){
+            var id = e.getAttribute("id");
+            //console.log(id);
+            var line = document.getElementsByTagName("line");
+            //console.log(line[13].getAttribute("source"));
+            for (i = 0; i < line.length; ++i) {
+                if (line[i].getAttribute("source") == id || line[i].getAttribute("target") == id) {
+                    line[i].style.visibility = 'visible';
+                } else {
+                    line[i].style.visibility = 'hidden';
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="main"></div>
+    <div class="radio">
+        <fieldset>
+            <legend>Weight:</legend>
+            <input type='radio' value='0' name='radio' onchange="change()" checked='checked'>All the Line</br>
+            <input type='radio' value='1' name='radio' onchange="change()">Weight = 1</br>
+            <input type='radio' value='2' name='radio' onchange="change()">Weight = 2</br>
+            <input type='radio' value='3' name='radio' onchange="change()">Weight = 3</br>
+            <input type='radio' value='4' name='radio' onchange="change()">Weight = 4</br>
+            <input type='radio' value='5' name='radio' onchange="change()">Weight = 5</br>
+            <input type='radio' value='6' name='radio' onchange="change()">Weight = 6</br>
+            <input type='radio' value='7' name='radio' onchange="change()">Weight = 7</br>
+        </fieldset>
+    </div>
+    <div class="color">
+        <div class="circle" style="background:#FF0000;">director</div>
+        <div class="circle" style="background:#EE9A00;">CEO</div>
+        <div class="circle" style="background:#ADFF2F;">Business Development Unit</div>
+        <div class="circle" style="background:#8A2BE2;">Business Support Unit</div>
+        <div class="circle" style="background:#000000;">Business Control Unit</div>
+    </div>
+    <script type="text/javascript">
+        var nodes = [{
+            ID: "0",
+            name: "James",
+            position: "Director",
+            size: 4,
+            color: 1
+        }, {
+            ID: "1",
+            name: "David",
+            position: "Director",
+            size: 4,
+            color: 1
+        }, {
+            ID: "2",
+            name: "George",
+            position: "CEO",
+            size: 3,
+            color: 2
+        }, {
+            ID: "3",
+            name: "Ronald",
+            position: "Business Development Manager",
+            size: 2,
+            color: 3
+        }, {
+            ID: "4",
+            name: "John",
+            position: "Business Support Manager",
+            size: 2,
+            color: 4
+        }, {
+            ID: "5",
+            name: "Richard",
+            position: "Business Control Manager",
+            size: 2,
+            color: 5
+        }, {
+            ID: "6",
+            name: "Daniel",
+            position: "Sales Department Leader",
+            size: 1,
+            color: 3
+        }, {
+            ID: "7",
+            name: "Kenneth",
+            position: "Product Department Leader",
+            size: 1,
+            color: 3
+        }, {
+            ID: "8",
+            name: "Anthony",
+            position: "Marketing Department Leader",
+            size: 1,
+            color: 3
+        }, {
+            ID: "9",
+            name: "Robert",
+            position: "Project Office Leader",
+            size: 1,
+            color: 4
+        }, {
+            ID: "10",
+            name: "Charles",
+            position: "Professional Service Leader",
+            size: 1,
+            color: 4
+        }, {
+            ID: "11",
+            name: "Paul",
+            position: "QA Leader",
+            size: 1,
+            color: 4
+        }, {
+            ID: "12",
+            name: "Mark",
+            position: "Design Office Leader",
+            size: 1,
+            color: 4
+        }, {
+            ID: "13",
+            name: "Kevin",
+            position: "Technical Support Office Leader",
+            size: 1,
+            color: 4
+        }, {
+            ID: "14",
+            name: "Edward",
+            position: "Software Development Leader",
+            size: 1,
+            color: 4
+        }, {
+            ID: "15",
+            name: "Joseph",
+            position: "Legal Office Leader",
+            size: 1,
+            color: 5
+        }, {
+            ID: "16",
+            name: "Michael",
+            position: "Finance Office Leader",
+            size: 1,
+            color: 5
+        }, {
+            ID: "17",
+            name: "Jason",
+            position: "HR Office Leader",
+            size: 1,
+            color: 5
+        }];
+        var edges = [{
+            source: 0,
+            amount: 5,
+            weight: 1,
+            target: 1
+        }, {
+            source: 0,
+            amount: 6,
+            weight: 1,
+            target: 2
+        }, {
+            source: 1,
+            amount: 5,
+            weight: 1,
+            target: 2
+        }, {
+            source: 2,
+            amount: 25,
+            weight: 2,
+            target: 3
+        }, {
+            source: 2,
+            amount: 36,
+            weight: 2,
+            target: 4
+        }, {
+            source: 2,
+            amount: 53,
+            weight: 3,
+            target: 5
+        }, {
+            source: 3,
+            amount: 150,
+            weight: 4,
+            target: 6
+        }, {
+            source: 3,
+            amount: 213,
+            weight: 5,
+            target: 7
+        }, {
+            source: 3,
+            amount: 298,
+            weight: 5,
+            target: 8
+        }, {
+            source: 4,
+            amount: 345,
+            weight: 6,
+            target: 9
+        }, {
+            source: 4,
+            amount: 123,
+            weight: 4,
+            target: 10
+        }, {
+            source: 4,
+            amount: 212,
+            weight: 5,
+            target: 11
+        }, {
+            source: 4,
+            amount: 453,
+            weight: 7,
+            target: 12
+        }, {
+            source: 4,
+            amount: 156,
+            weight: 4,
+            target: 13
+        }, {
+            source: 4,
+            amount: 278,
+            weight: 5,
+            target: 14
+        }, {
+            source: 5,
+            amount: 300,
+            weight: 5,
+            target: 15
+        }, {
+            source: 5,
+            amount: 78,
+            weight: 3,
+            target: 16
+        }, {
+            source: 5,
+            amount: 256,
+            weight: 5,
+            target: 17
+        }, {
+            source: 6,
+            amount: 78,
+            weight: 3,
+            target: 7
+        }, {
+            source: 6,
+            amount: 145,
+            weight: 4,
+            target: 8
+        }, {
+            source: 7,
+            amount: 139,
+            weight: 4,
+            target: 8
+        }, {
+            source: 9,
+            amount: 34,
+            weight: 2,
+            target: 10
+        }, {
+            source: 9,
+            amount: 134,
+            weight: 4,
+            target: 11
+        }, {
+            source: 9,
+            amount: 546,
+            weight: 7,
+            target: 12
+        }, {
+            source: 9,
+            amount: 23,
+            weight: 2,
+            target: 13
+        }, {
+            source: 9,
+            amount: 145,
+            weight: 4,
+            target: 14
+        }, {
+            source: 10,
+            amount: 256,
+            weight: 5,
+            target: 11
+        }, {
+            source: 10,
+            amount: 222,
+            weight: 5,
+            target: 12
+        }, {
+            source: 10,
+            amount: 190,
+            weight: 4,
+            target: 12
+        }, {
+            source: 10,
+            amount: 56,
+            weight: 3,
+            target: 14
+        }, {
+            source: 11,
+            amount: 78,
+            weight: 3,
+            target: 12
+        }, {
+            source: 11,
+            amount: 112,
+            weight: 4,
+            target: 13
+        }, {
+            source: 12,
+            amount: 98,
+            weight: 3,
+            target: 14
+        }, {
+            source: 15,
+            amount: 88,
+            weight: 3,
+            target: 16
+        }, {
+            source: 15,
+            amount: 123,
+            weight: 4,
+            target: 17
+        }, {
+            source: 16,
+            amount: 238,
+            weight: 5,
+            target: 17
+        }, {
+            source: 17,
+            amount: 5,
+            weight: 1,
+            target: 7
+        }, {
+            source: 16,
+            amount: 15,
+            weight: 2,
+            target: 6
+        }, {
+            source: 16,
+            amount: 23,
+            weight: 2,
+            target: 7
+        }, {
+            source: 16,
+            amount: 54,
+            weight: 3,
+            target: 8
+        }, {
+            source: 16,
+            amount: 18,
+            weight: 2,
+            target: 9
+        }, {
+            source: 16,
+            amount: 23,
+            weight: 2,
+            target: 11
+        }, {
+            source: 16,
+            amount: 41,
+            weight: 2,
+            target: 13
+        }, {
+            source: 16,
+            amount: 13,
+            weight: 2,
+            target: 14
+        }, {
+            source: 16,
+            amount: 27,
+            weight: 2,
+            target: 10
+        }];
+
+        var width = 960,
+            height = 720;
+        var color = d3.scale.category20();
+        var radius = d3.scale.sqrt().range([0, 60]);
+
+        var svg = d3.select(".main")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        //导入数据文件
+        //d3.json("http://127.168.0.1/visualization/Demo/Data/SocialRelation.json", function(graph) {
+        var force = d3.layout.force()
+            .nodes(nodes) //指定节点数组
+            .links(edges) //指定连线数组
+            .charge([-2000]) //相互之间的作用力
+            .size([width, height]) //指定作用域范围
+            .linkDistance(150);
+
+        force.start(); //开始作用
+
+        console.log(nodes);
+        console.log(edges);
+        //添加连线
+        var svg_edges = svg.selectAll("line")
+            .data(edges)
+            .enter()
+            .append("line")
+            .attr("source", function(d) {
+                return d.source.ID;
+            })
+            .attr("target", function(d) {
+                return d.target.ID;
+            })
+            .style("stroke", "#ccc")
+            .style("stroke-width", function(d) {
+                return d.weight;
+            })
+            .style("visibility", "visible");
+
+            svg_edges.append("title").text(function(d) {
+                return "amount:"+d.amount+"  weight:"+d.weight;
+            });
+
+        //var color = d3.scale.category20();
+        var color = ["#FF0000", "#EE9A00", "#ADFF2F", "#8A2BE2", "#000000"];
+
+        //添加节点
+        var svg_nodes = svg.selectAll("circle")
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .attr("r", function(d) {
+                return d.size * 5;
+            })
+            .attr("id", function(d){
+                return d.ID;
+            })
+            .attr("onclick", "display(this)")
+            .style("fill", function(d) {
+                return color[d.color - 1];
+            })
+            .call(force.drag); //使得节点能够拖动
+
+        // 鼠标停留显示value
+        svg_nodes.append("title").text(function(d) {
+            return d.position;
+        });
+
+        //添加描述节点的文字
+        var svg_texts = svg.selectAll("text")
+            .data(nodes)
+            .enter()
+            .append("text")
+            .style("fill", "black")
+            .attr("dx", 20)
+            .attr("dy", 8)
+            .text(function(d) {
+                return d.name;
+            });
+        force.on("tick", function() { //对于每一个时间间隔
+            //更新连线坐标
+            svg_edges.attr("x1", function(d) {
+                    return d.source.x;
+                })
+                .attr("y1", function(d) {
+                    return d.source.y;
+                })
+                .attr("x2", function(d) {
+                    return d.target.x;
+                })
+                .attr("y2", function(d) {
+                    return d.target.y;
+                });
+
+            //更新节点坐标
+            svg_nodes.attr("cx", function(d) {
+                    return d.x;
+                })
+                .attr("cy", function(d) {
+                    return d.y;
+                });
+
+            //更新文字坐标
+            svg_texts.attr("x", function(d) {
+                    return d.x;
+                })
+                .attr("y", function(d) {
+                    return d.y;
+                });
+        });
+        //});
+    </script>
+</body>

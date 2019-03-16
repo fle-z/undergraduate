@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+</head>
+
+<body>
+    <p>Apple</p>
+    <p>Pear</p>
+    <p>Banana</p>
+    <script type="text/javascript">
+        var str = "China";
+        var body = d3.select("body");
+        var p = body.selectAll("p");
+        p.datum(str);
+        p.text(function(d, i){
+            return "第 " + i + " 个元素绑定的数据是 " + d;
+        });
+    </script>
+</body>
+
+</html>
